@@ -2,7 +2,9 @@ import requests
 import schedule
 import time
 
-BOT_TOKEN = "8826668549:AAFYD0rdk4NcPHpz6CXQBknQSsI0VZDJ_B8"
+import os
+
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@jobhuntez"
 
 def post_job():
