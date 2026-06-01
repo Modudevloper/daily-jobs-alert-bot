@@ -28,7 +28,7 @@ def send_message(text):
             "chat_id": CHANNEL,
             "text": text
         },
-        timeout=30
+        timeout=10
     )
 
 new_posts = 0
