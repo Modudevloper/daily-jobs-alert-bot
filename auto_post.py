@@ -37,7 +37,7 @@ def send_message(text):
 url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
 ```
-requests.post(
+response = requests.post(
     url,
     data={
         "chat_id": CHANNEL,
@@ -46,25 +46,22 @@ requests.post(
     },
     timeout=20
 )
+
+print(response.text)
 ```
 
 current_hour = datetime.utcnow().hour
 
 if current_hour == 2:
 category = "🌅 Morning Jobs"
-
 elif current_hour == 5:
 category = "🎓 Internship Jobs"
-
 elif current_hour == 8:
 category = "🌍 Remote Jobs"
-
 elif current_hour == 11:
 category = "💻 Developer Jobs"
-
 elif current_hour == 15:
 category = "📊 Daily Digest"
-
 else:
 category = "💼 Jobs"
 
@@ -73,6 +70,8 @@ new_posts = 0
 for feed_url in RSS_FEEDS:
 
 ```
+print(f"Checking feed: {feed_url}")
+
 feed = feedparser.parse(feed_url)
 
 for job in feed.entries[:10]:
@@ -95,10 +94,8 @@ for job in feed.entries[:10]:
     if any(domain in link.lower() for domain in BAD_DOMAINS):
         continue
 
-    message = f"""
+    message = f"""🚀 New Job Alert
 ```
-
-🚀 New Job Alert
 
 {category}
 
