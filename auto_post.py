@@ -1,5 +1,5 @@
 import os
-import sqlite3
+import json
 import feedparser
 import requests
 
@@ -7,18 +7,17 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@jobhuntez"
 
 RSS_FEEDS = [
-    "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+    "https://weworkremotely.com/categories/remote-programming-jobs.rss",
+    "https://weworkremotely.com/categories/remote-design-jobs.rss",
 ]
 
-conn = sqlite3.connect("jobs.db")
-cursor = conn.cursor()
+POSTED_FILE = "posted_jobs.json"
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS jobs(
-    link TEXT PRIMARY KEY,
-    title TEXT
-)
-""")
+if os.path.exists(POSTED_FILE):
+    with open(POSTED_FILE, "r", encoding="utf-8") as f:
+        posted_links = set(json.load(f))
+else:
+    posted_links = set()
 
 def send_message(text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
@@ -32,30 +31,21 @@ def send_message(text):
         timeout=30
     )
 
+new_posts = 0
+
 for feed_url in RSS_FEEDS:
 
     feed = feedparser.parse(feed_url)
 
     for job in feed.entries[:10]:
 
-        title = job.title
-        link = job.link
+        title = job.title.strip()
+        link = job.link.strip()
 
-        cursor.execute(
-            "SELECT link FROM jobs WHERE link=?",
-            (link,)
-        )
-
-        if cursor.fetchone():
+        if link in posted_links:
             continue
 
-        cursor.execute(
-            "INSERT INTO jobs(link,title) VALUES(?,?)",
-            (link, title)
-        )
-
-        message = f"""
-🚀 New Job Alert
+        message = f"""🚀 New Job Alert
 
 💼 {title}
 
@@ -67,5 +57,10 @@ for feed_url in RSS_FEEDS:
 
         send_message(message)
 
-conn.commit()
-conn.close()
+        posted_links.add(link)
+        new_posts += 1
+
+with open(POSTED_FILE, "w", encoding="utf-8") as f:
+    json.dump(list(posted_links), f, indent=2)
+
+print(f"Posted {new_posts} new jobs")
