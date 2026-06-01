@@ -1,31 +1,24 @@
-import requests
-import schedule
-import time
-
 import os
+import requests
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@jobhuntez"
 
-def post_job():
+def send_message(text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
 
-    requests.post(
+    response = requests.post(
         url,
         data={
             "chat_id": CHANNEL,
-            "text": "🚀 New Job Alert\n\nSoftware Developer Intern\nLocation: Remote\nApply Now!"
+            "text": text
         }
     )
 
-    print("Job Posted")
+    print(response.text)
 
-schedule.every(1).minutes.do(post_job)
-
-print("Auto Poster Running...")
-
-post_job()
-
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+if __name__ == "__main__":
+    send_message(
+        "🚀 Daily Jobs Alert\n\n"
+        "GitHub Action Working Successfully ✅"
+    )
