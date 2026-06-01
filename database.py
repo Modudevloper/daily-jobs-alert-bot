@@ -12,5 +12,3 @@ CREATE TABLE IF NOT EXISTS jobs(
 
 conn.commit()
 conn.close()
-
-print("Database Ready")
