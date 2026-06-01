@@ -3,8 +3,19 @@ import json
 import feedparser
 import requests
 
+print("AUTO_POST_V2_RUNNING")
+
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL = "@jobhuntez"
+
+feed = feedparser.parse(
+    "https://weworkremotely.com/categories/remote-programming-jobs.rss"
+)
+print("Entries:", len(feed.entries))
+
+for job in feed.entries[:3]:
+    print(job.title)
+    print(job.link)
 
 RSS_FEEDS = [
     "https://weworkremotely.com/categories/remote-programming-jobs.rss",
