@@ -33,6 +33,7 @@ if os.path.exists(POSTED_FILE):
 else:
     posted_links = set()
 
+
 def send_message(text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     response = requests.post(
