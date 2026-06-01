@@ -31,14 +31,11 @@ def send_message(text):
 
 for feed_url in RSS_FEEDS:
     feed = feedparser.parse(feed_url)
-
     for job in feed.entries[:5]:
         title = job.title
         link = job.link
-
         if link in posted_links:
             continue
-
         message = f"""🚀 New Job Alert
 
 💼 {title}
