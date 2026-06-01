@@ -2,7 +2,12 @@ name: Daily Jobs Alert
 
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "30 2 * * *"   # 08:00 AM IST
+    - cron: "30 5 * * *"   # 11:00 AM IST
+    - cron: "30 8 * * *"   # 02:00 PM IST
+    - cron: "30 11 * * *"  # 05:00 PM IST
+    - cron: "30 15 * * *"  # 09:00 PM IST
+
   workflow_dispatch:
 
 permissions:
@@ -13,29 +18,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install
-        run: pip install requests feedparser
+      - run: pip install -r requirements.txt
 
       - name: Run Bot
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: python auto_post.py
 
-      - name: Commit updated jobs list
+      - name: Save Posted Jobs
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           git add posted_jobs.json
-
-          git diff --staged --quiet || git commit -m "Update posted jobs"
-
+          git diff --staged --quiet || git commit -m "Update jobs"
           git push
