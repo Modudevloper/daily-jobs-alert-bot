@@ -42,7 +42,8 @@ async def resume(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Reply to user
-    await update.message.reply_text("📩 Help request sent to admin!")
+    await update.message.reply_text("Use /jobs /internships /govjobs /portfolio /resume")
+
     # Send DM to you
     user = update.message.from_user
     username = f"@{user.username}" if user.username else user.first_name
