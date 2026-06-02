@@ -11,61 +11,37 @@ TOKEN = "YOUR_NEW_BOT_TOKEN"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"""👋 Welcome to Daily Jobs Alert
-
-Available Commands:
-
-/jobs - Latest Jobs
-/internships - Latest Internships
-/govjobs - Government Jobs
-/results - Exam Results
-/admitcard - Admit Cards
-/help - Help
-
-📢 Join: https://t.me/jobhuntez
-"""
+"👋 Welcome to Daily Jobs Alert\n\nJoin: https://t.me/jobhuntez"
 )
 
 async def jobs(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"📢 Latest Jobs\n\nJoin Channel:\nhttps://t.me/jobhuntez"
+"📢 Latest Jobs\nhttps://t.me/jobhuntez"
 )
 
 async def internships(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"🎓 Latest Internships\n\nJoin Channel:\nhttps://t.me/jobhuntez"
+"🎓 Latest Internships\nhttps://t.me/jobhuntez"
 )
 
 async def govjobs(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"🏛 Government Jobs\n\nJoin Channel:\nhttps://t.me/jobhuntez"
+"🏛 Government Jobs\nhttps://t.me/jobhuntez"
 )
 
 async def results(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"📄 Latest Results\n\nJoin Channel:\nhttps://t.me/jobhuntez"
+"📄 Exam Results\nhttps://t.me/jobhuntez"
 )
 
 async def admitcard(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"🪪 Latest Admit Cards\n\nJoin Channel:\nhttps://t.me/jobhuntez"
+"🪪 Admit Cards\nhttps://t.me/jobhuntez"
 )
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 await update.message.reply_text(
-"""❓ Help & Support
-
-Use the commands:
-
-/jobs
-/internships
-/govjobs
-/results
-/admitcard
-
-📢 Channel:
-https://t.me/jobhuntez
-"""
+"Use /jobs /internships /govjobs /results /admitcard"
 )
 
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -76,12 +52,6 @@ if "job" in text:
     await update.message.reply_text(
         "📢 Latest Jobs:\nhttps://t.me/jobhuntez"
     )
-
-elif "internship" in text:
-    await update.message.reply_text(
-        "🎓 Internships:\nhttps://t.me/jobhuntez"
-    )
-
 else:
     await update.message.reply_text(
         "✅ Join Channel:\nhttps://t.me/jobhuntez"
