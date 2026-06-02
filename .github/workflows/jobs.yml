@@ -10,9 +10,6 @@ schedule:
 
 workflow_dispatch:
 
-permissions:
-contents: write
-
 jobs:
 run-bot:
 runs-on: ubuntu-latest
@@ -28,23 +25,11 @@ steps:
       python-version: "3.12"
 
   - name: Install Dependencies
-    run: pip install -r requirements.txt
+    run: |
+      pip install -r requirements.txt
 
   - name: Run Bot
     env:
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
     run: python auto_post.py
-
-  - name: Save Posted Jobs
-    run: |
-      git config user.name "github-actions"
-      git config user.email "github-actions@github.com"
-
-      git add posted_jobs.json
-
-      git diff --staged --quiet || git commit -m "Update posted jobs"
-
-      git pull --rebase origin main || true
-
-      git push origin main || true
-
+```
