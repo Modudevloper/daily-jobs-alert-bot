@@ -8,7 +8,7 @@ from telegram.ext import (
 )
 
 TOKEN = "8826668549:AAFYD0rdk4NcPHpz6CXQBknQSsI0VZDJ_B8"
-YOUR_USERNAME = "@M_oo_d_off"  # Your personal username
+YOUR_USERNAME = "@M_oo_d_off"
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -30,20 +30,19 @@ async def govjobs(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🏛 Government Jobs\nhttps://t.me/jobhuntez"
     )
 
-async def results(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def portfolio(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "📄 Exam Results\nhttps://t.me/jobhuntez"
+        "🎨 Portfolio Design Resources:\nhttps://t.me/jobhuntez"
     )
 
-async def admitcard(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def resume(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🪪 Admit Cards\nhttps://t.me/jobhuntez"
+        "📄 Resume Maker Website:\nhttps://t.me/jobhuntez"
     )
 
 async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Reply to user
     await update.message.reply_text("📩 Help request sent to admin!")
-
     # Send DM to you
     user = update.message.from_user
     username = f"@{user.username}" if user.username else user.first_name
@@ -53,7 +52,7 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
             text=f"🆘 Help requested by: {username}"
         )
     except:
-        pass  # Silent fail if DM doesn't work
+        pass
 
 async def reply(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = update.message.text.lower()
@@ -72,8 +71,8 @@ app.add_handler(CommandHandler("start", start))
 app.add_handler(CommandHandler("jobs", jobs))
 app.add_handler(CommandHandler("internships", internships))
 app.add_handler(CommandHandler("govjobs", govjobs))
-app.add_handler(CommandHandler("results", results))
-app.add_handler(CommandHandler("admitcard", admitcard))
+app.add_handler(CommandHandler("portfolio", portfolio))
+app.add_handler(CommandHandler("resume", resume))
 app.add_handler(CommandHandler("help", help_cmd))
 
 app.add_handler(
